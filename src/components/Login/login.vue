@@ -47,7 +47,7 @@ export default {
                     console.log("校验通过");
                     this.$http.post(this.$apis.signin,this.userInfo)
                     .then((resp)=>{
-                        // console.log("resp",resp.data);
+                        console.log("resp",resp.data);
                         var username = resp.data.response.accountName
                         var token = resp.data.token
                         var success = resp.data.success
