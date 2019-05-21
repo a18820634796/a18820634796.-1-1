@@ -7,10 +7,12 @@ import './apis'
 
 Vue.config.productionTip = false
 import 'reset-css'
+import 'animate.css'
 //引入elementUi
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
+import '@/mixins'
 
 router.beforeEach((to,from,next)=>{
   //如果是直接跳转登录页面，则直接放行

@@ -5,8 +5,14 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {path:'/',redirect:'/home'},
-    {path:'/home',name:'home',component:()=>import(/**webpackChunkName:'Home' */'@/components/Home')},
+    {path:'/',redirect:'/home'},
+    {path:'/home',name:'home',component:()=>import(/**webpackChunkName:'Home' */'@/components/Home'),
+    children:[
+      // {path:'homeLeftchild',
+      //   name:'homeLeftchild',
+      //   component:()=>import(/**webpackChunkName:'homeleftchilder */'@/components/homeLeftchild')}
+    ]
+  },
     {path:'/login',name:'login',component:()=>import(/**weboackChunkName:'login' */'@/components/Login/login')}
   ]
 })
