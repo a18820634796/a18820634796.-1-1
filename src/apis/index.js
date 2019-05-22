@@ -20,7 +20,7 @@ var apis = {
     deleteRole:'/deleteRole',  //删除角色
     addNewRole:'/addNewRole',  //新增角色
     updateRoleInfo:'/updateRoleInfo', //更新角色信息
-    findAllRoles:'/findAllRoles', //查询所有的角色
+    findAllRoles:'/system/role/findAllRoles', //查询所有的角色
     findRoleInfoById:'/findRoleInfoById', //查询角色信息
 
     //账号管理

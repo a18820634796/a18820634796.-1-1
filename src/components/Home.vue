@@ -7,7 +7,9 @@
             <div id="homeLeft">
                 <nav-bar/>
             </div>
-            <div id="homeRight"></div>
+            <div id="homeRight">
+                <router-view/>
+            </div>
         </div>
     </div>
     
@@ -67,7 +69,6 @@ export default {
                 height: 100%;
                 background: url(../assets/homeRight.jpg);
                 background-repeat: no-repeat;
-                background-size: 100%；
                 
             }
         }    

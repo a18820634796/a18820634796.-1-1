@@ -14,7 +14,7 @@
                             <span>{{item.title}}</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item  v-for="(item,index) in item.systemdata" :key="index">{{item.title}}</el-menu-item>
+                            <el-menu-item  v-for="(item,index) in item.systemdata" :key="index" @click="pushView(item)">{{item.title}}</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -30,8 +30,8 @@ export default {
             manage:[
                 {title:'系统管理',name:'system',id:'1',
                     systemdata:[
-                        {title:'角色管理',name:'role',num:1},
                         {title:'用户管理',name:'user',num:2},
+                        {title:'角色管理',name:'role',num:1},
                         {title:'权限管理',name:'root',num:3}
                     ]
                 },
@@ -58,7 +58,9 @@ export default {
         }      
     },
     methods: {
-     
+     pushView(item){
+         this.$router.push(item.name)
+     }
     },
     // created(){
     //     this.$http.post(this.$apis.ssqs)

@@ -9,6 +9,9 @@ Vue.config.productionTip = false
 import 'reset-css'
 import 'animate.css'
 //引入elementUi
+import mttable from '@/components/Common/mttable'
+Vue.component ('mttable',mttable)
+Vue.use(mttable)
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
