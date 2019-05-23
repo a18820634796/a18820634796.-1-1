@@ -10,19 +10,28 @@
             <div class="center">
                 <div id="centerHead">
                     <el-form status-icon label-width="80px">
-                        <el-form-item label="角色名称">
-                            <el-input ></el-input>
+                        <el-form-item label="角色名称" prop="roleDesc">
+                            <el-input v-model="roleInfo.roleDesc">{{roleInfo.roleDesc}}</el-input>
                         </el-form-item>
                     </el-form>
                 </div>
             </div>
-            <div class="foot"></div>
+            <div class="foot">
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 export default {
+    data(){
+        return {
+            roleInfo:{
+                roleDesc:''
+            }
+        }
+    },
     methods:{
         goRole(){
             this.$http.get(this.$apis.findAllRoles)
@@ -33,8 +42,18 @@ export default {
                 this.$router.push({name:'role'})
             })
         }
-    }
+    },
+    mounted(){
+        this.$http.get(this.$apis.findAllRoles)
+        .then((resp)=>{
+            // console.log(resp.data)
+            this.roleInfo =resp.data.allRoles
+            this.length = resp.data.allRoles.length
+            this.roleInfo = this.$route.params.roleInfo
+            console.log(this.roleInfo)
 
+        })
+    }
 }
 </script>
 

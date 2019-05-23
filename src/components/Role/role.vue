@@ -23,7 +23,7 @@
                                 <td>{{item.roleName}}</td>
                                 <td></td>
                                 <td style="width:400px">
-                                    <el-button type="primary" @click="pushView({name:'redactRole'})">
+                                    <el-button type="primary" @click="pushView({name:'redactRole',params:{roleInfo:item}})">
                                         编辑角色
                                     </el-button>
                                     <el-button type="danger" @click="deleteRole(item._id)">
@@ -69,13 +69,13 @@ export default {
                    this.loadMore(1);
                })
            }
-           this.operatorConfirm("删除文章",action)
+           this.operatorConfirm("删除角色",action)
        }
     },
     created(){
         this.$http.get(this.$apis.findAllRoles,{pageSize:10,pageNo:1})
         .then((resp)=>{
-            // console.log(resp.data)
+            console.log(resp.data)
             this.allRoles =resp.data.allRoles
             this.length = resp.data.allRoles.length
         })
