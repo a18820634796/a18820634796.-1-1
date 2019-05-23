@@ -2,6 +2,8 @@ import Vue from 'vue'
 Vue.mixin({
     methods:{
         pushView(item){
+            console.log("测试");
+            console.log(item);
             this.$router.push({path:item.path,name:item.name,query:item.query,params:item.params})
         },
         post(url,params){

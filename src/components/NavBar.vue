@@ -58,9 +58,7 @@ export default {
         }      
     },
     methods: {
-     pushView(item){
-         this.$router.push(item.name)
-     }
+        
     },
     // created(){
     //     this.$http.post(this.$apis.ssqs)

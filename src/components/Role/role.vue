@@ -4,7 +4,7 @@
             <mttable id="tableAll">
                 <template slot="mttable-head">
                     <div class="headButton">
-                        <el-button type="primary">
+                        <el-button type="primary" @click="pushView({name:'addNewRole'})">
                             新增角色
                         </el-button>
                     </div>
@@ -23,7 +23,7 @@
                                 <td>{{item.roleName}}</td>
                                 <td></td>
                                 <td style="width:400px">
-                                    <el-button type="primary">
+                                    <el-button type="primary" @click="pushView({name:'redactRole'})">
                                         编辑角色
                                     </el-button>
                                     <el-button type="danger">
@@ -39,8 +39,9 @@
                         </template>
                     </table>
                 </template>    
-            </mttable>
+            </mttable>          
         </div>
+        <router-view/>
     </div>
 </template>
 
@@ -52,10 +53,19 @@ export default {
             length:0,
         }
     },
+    methods:{
+        open() {
+            var team = `
+                <div>nihao</div>
+            `
+        this.$confirm(team)
+        
+      }
+    },
     created(){
         this.$http.get(this.$apis.findAllRoles)
         .then((resp)=>{
-            console.log(resp.data)
+            // console.log(resp.data)
             this.allRoles =resp.data.allRoles
             this.length = resp.data.allRoles.length
         })
@@ -79,7 +89,6 @@ export default {
         height: 100%;
         padding: 2%;
         box-sizing: border-box;
-        // box-shadow: 0 0 1px 1px gray;
         display: flex;
         flex-direction: column;
         justify-items: center;
@@ -100,8 +109,6 @@ export default {
             border-top: none;
             text-align: center;
             tr{
-                // width: 100%;              
-                // height: 50;
                 td,th{
                     line-height: 50px;
                     height: 30px;

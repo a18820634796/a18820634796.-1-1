@@ -51,6 +51,7 @@ export default {
                         var username = resp.data.response.accountName
                         var token = resp.data.token
                         var success = resp.data.success
+                        console.log(token)
                         if(success){
                             //保存token到本地                         
                             localStorage.setItem("token",token);

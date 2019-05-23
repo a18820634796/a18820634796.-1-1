@@ -13,15 +13,15 @@ var apis = {
     //权限管理
     deletePermission:'/deletePermission', //删除权限
     addNewPersmission:'/addNewPersmission', //新增权限
-    showAllPermission:'/showAllPermission',  //查询所有权限
+    showAllPermission:'/system/permission/showAllPermission',  //查询所有权限
     findPermissionById:'/findPermissionById',  //根据权限id查询权限信息
 
     //角色管理
-    deleteRole:'/deleteRole',  //删除角色
-    addNewRole:'/addNewRole',  //新增角色
+    deleteRole:'/system/role/deleteRole',  //删除角色
+    addNewRole:'/system/role/addNewRole',  //新增角色
     updateRoleInfo:'/updateRoleInfo', //更新角色信息
     findAllRoles:'/system/role/findAllRoles', //查询所有的角色
-    findRoleInfoById:'/findRoleInfoById', //查询角色信息
+    findRoleInfoById:'/system/role/findRoleInfoById', //查询角色信息
 
     //账号管理
     deleteUser:'/deleteUser',  //删除用户
