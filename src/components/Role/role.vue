@@ -26,7 +26,7 @@
                                     <el-button type="primary" @click="pushView({name:'redactRole'})">
                                         编辑角色
                                     </el-button>
-                                    <el-button type="danger">
+                                    <el-button type="danger" @click="deleteRole(item._id)">
                                         删除角色
                                     </el-button>
                                 </td>
@@ -54,16 +54,26 @@ export default {
         }
     },
     methods:{
-        open() {
-            var team = `
-                <div>nihao</div>
-            `
-        this.$confirm(team)
-        
-      }
+        loadMore(pageNo){
+            this.$http.get(this.$apis.findAllRoles,{pageSize:10,pageNo:1})
+            .then((resp)=>{
+                // console.log(resp.data)
+                this.allRoles =resp.data.allRoles
+                this.length = resp.data.allRoles.length
+            })
+        },
+       deleteRole(id){
+           var action = ()=>{
+               this.post(this.$apis.deleteRole,{_id:id})
+               .then(()=>{
+                   this.loadMore(1);
+               })
+           }
+           this.operatorConfirm("删除文章",action)
+       }
     },
     created(){
-        this.$http.get(this.$apis.findAllRoles)
+        this.$http.get(this.$apis.findAllRoles,{pageSize:10,pageNo:1})
         .then((resp)=>{
             // console.log(resp.data)
             this.allRoles =resp.data.allRoles

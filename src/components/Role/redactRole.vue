@@ -3,11 +3,19 @@
         <div id="tableTest">
             <div class="head">
                 <span class="headLeft">提示</span>
-                <span class="headRight" @click="outRole">
+                <span class="headRight" @click="goRole">
                     <i class="el-icon-circle-close"></i>
                 </span>
             </div>
-            <div class="center"></div>
+            <div class="center">
+                <div id="centerHead">
+                    <el-form status-icon label-width="80px">
+                        <el-form-item label="角色名称">
+                            <el-input ></el-input>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
             <div class="foot"></div>
         </div>
     </div>
@@ -15,7 +23,17 @@
 
 <script>
 export default {
-    
+    methods:{
+        goRole(){
+            this.$http.get(this.$apis.findAllRoles)
+            .then((resp)=>{
+                // console.log(resp.data)
+                this.allRoles =resp.data.allRoles
+                this.length = resp.data.allRoles.length
+                this.$router.push({name:'role'})
+            })
+        }
+    }
 
 }
 </script>
@@ -48,6 +66,20 @@ export default {
                     right: 20px;
                     top: 12px;
                 }
+            }
+            .center{
+                width: 100%;
+                height: 76%;
+                background: lightblue;
+                #centerHead{
+                    width: 100%;
+                    height:50px;
+                }
+            }
+            .foot{
+                width: 100%;
+                height: 12%;
+                background: yellow;
             }
         }
     }
