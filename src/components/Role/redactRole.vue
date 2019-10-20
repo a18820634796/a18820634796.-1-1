@@ -15,9 +15,29 @@
                         </el-form-item>
                     </el-form>
                 </div>
+                 <div id="centerFoot">
+                    <div class="centerfoot">
+                        <el-tree
+                        :data="userRoot"
+                        v-model="roleInfo"
+                        
+                        show-checkbox
+                        node-key="id"
+                        :props="defaultProps">
+                        </el-tree>
+                    </div>                 
+                </div>
             </div>
             <div class="foot">
-
+               <div class="footBut">
+                   <el-row>
+                    <template>
+                        <el-button @click="pushView({name:'role'})">取消</el-button>
+                    </template>
+                    
+                    <el-button type="primary">确定</el-button>
+                </el-row>
+               </div>
             </div>
         </div>
     </div>
@@ -28,7 +48,14 @@ export default {
     data(){
         return {
             roleInfo:{
-                roleDesc:''
+                roleDesc:'',
+                permissions:[]
+            },
+            userRoot:[],
+            defaultProps: {
+                showcheckDel:false,
+                children: 'children',
+                label: 'permissionDesc'
             }
         }
     },
@@ -38,21 +65,53 @@ export default {
             .then((resp)=>{
                 // console.log(resp.data)
                 this.allRoles =resp.data.allRoles
-                this.length = resp.data.allRoles.length
                 this.$router.push({name:'role'})
             })
         }
     },
     mounted(){
-        this.$http.get(this.$apis.findAllRoles)
-        .then((resp)=>{
-            // console.log(resp.data)
-            this.roleInfo =resp.data.allRoles
-            this.length = resp.data.allRoles.length
-            this.roleInfo = this.$route.params.roleInfo
-            console.log(this.roleInfo)
+        // console.log(this.$route)
+        this.$http.get(this.$apis.showAllPermission,)
+        .then((resp)=>{ 
+            var allPermission  = resp.data.allPermission
+                    // console.log(allPermission)
+            for(var i = 0;i<allPermission.length;i++){
+                if(!allPermission[i].parentid){
+                    allPermission[i].children = [];
+                    this.userRoot.push(allPermission[i])
+                }else{
+                    for(var j =0;j<this.userRoot.length;j++){                    
+                        var id =this.userRoot[j]._id
+                        var parentid = allPermission[i].parentid
+                        if(parentid == id){
+                            this.userRoot[j].children.push(allPermission[i])
+                        }
+                    }
+                }
+                localStorage.setItem("userRoot",JSON.stringify(this.userRoot))
+            }
+            this.$http.get(this.$apis.findAllRoles)
+            .then((resp)=>{
 
+                this.length = resp.data.allRoles.length
+                this.roleInfo = this.$route.params.roleInfo
+                this.permissions = this.$route.params.roleInfo.permissions
+                // console.log(this.permissions)
+                // console.log(this.roleInfo)
+                for(var i=0;i<this.permissions.length;i++){
+                    // console.log(this.permissions[i])
+                    for(var q=0;q<allPermission.length;q++){
+                        if(this.permissions[i] ==allPermission[q]._id ){
+                            // userRoot.permissionDesc(show-checkbox) = true
+                        }
+                    }
+                //    console.log("this",allPermission._id)
+                   
+                }
+            })
         })
+         
+        
     }
 }
 </script>
@@ -68,9 +127,9 @@ export default {
             position: absolute;
             top: 50px;
             left: 250px;
-            width: 40%;
-            height: 75%;
-            background: rgb(221, 221, 221);
+            width: 35%;
+            height: 65%;
+            background: rgb(255, 255, 255);
             .head{
                 width: 100%;
                 height: 12%;
@@ -89,7 +148,7 @@ export default {
             .center{
                 width: 100%;
                 height: 76%;
-                background: lightblue;
+                // background: lightblue;
                 #centerHead{
                     width: 100%;
                     height:50px;
@@ -98,7 +157,14 @@ export default {
             .foot{
                 width: 100%;
                 height: 12%;
-                background: yellow;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                right: 20px;
+                .footBut{
+                    position: absolute;
+                    right: 20px;
+                }
             }
         }
     }

@@ -47,11 +47,13 @@ export default {
                     console.log("校验通过");
                     this.$http.post(this.$apis.signin,this.userInfo)
                     .then((resp)=>{
-                        console.log("resp",resp.data);
-                        var username = resp.data.response.accountName
-                        var token = resp.data.token
-                        var success = resp.data.success
-                        console.log(token)
+                        console.log("resp",resp);
+                        var resp = resp.data
+                        var username = resp.response.accountName
+                        var token = resp.token
+                        var success = resp.success
+                        localStorage.setItem('resp',JSON.stringify(resp))
+                        console.log(resp)
                         if(success){
                             //保存token到本地                         
                             localStorage.setItem("token",token);
@@ -60,7 +62,6 @@ export default {
                             //Home组件
                             // console.log(query.redirect)
                             if(!query.redirect){
-                                console.log("hello")
                                 this.$router.push({path:'/home'})
                             }else{
                                 this.$router.push({path:query.redirect})

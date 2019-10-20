@@ -1,40 +1,15 @@
+// The Vue build version to load with the `import` command
+// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
-import store from './store'
-import './utils/mtaxios'
-import './apis'
 
 Vue.config.productionTip = false
-import 'reset-css'
-import 'animate.css'
-//引入elementUi
-import mttable from '@/components/Common/mttable'
-Vue.component ('mttable',mttable)
-Vue.use(mttable)
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-Vue.use(ElementUI)
-import '@/mixins'
 
-router.beforeEach((to,from,next)=>{
-  //如果是直接跳转登录页面，则直接放行
-  if(to.path==="/login"){
-    next()
-    //如果不是，判断是否一登录
-  }else{
-    var token = localStorage.getItem("token");
-    if(token){
-      next()
-    }else{
-      next({path:'/login',query:{redirect:to.path}})
-    }
-  }
-  next()
-})
-
+/* eslint-disable no-new */
 new Vue({
+  el: '#app',
   router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+  components: { App },
+  template: '<App/>'
+})

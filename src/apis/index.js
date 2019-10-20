@@ -24,11 +24,11 @@ var apis = {
     findRoleInfoById:'/system/role/findRoleInfoById', //查询角色信息
 
     //账号管理
-    deleteUser:'/deleteUser',  //删除用户
-    addNewUser:'/addNewUser',  //新增用户
-    updateUserInfo:'/updateUserInfo',  //更新用户信息
-    findUserInfoById:'/findUserInfoById', ///查询用户信息
-    findAllUsers:'/findAllUsers'  //获取所有账号
+    deleteUser:'/system/user/deleteUser',  //删除用户
+    addNewUser:'/system/user/addNewUser',  //新增用户
+    updateUserInfo:'/system/user/updateUserInfo',  //更新用户信息
+    findUserInfoById:'/system/user/findUserInfoById', ///查询用户信息
+    findAllUsers:'/system/user/findAllUsers'  //获取所有账号
 }
 Vue.prototype.$apis = apis;
 export default apis;

@@ -7,18 +7,18 @@
                     <i class="el-icon-circle-close"></i>
                 </span>
             </div>
-            <div class="center">
+            <div class="center" ref="addnewRole">
                 <table>
                     <tr>
                         <td style="height:50px;width:150px;">角色名称</td>
                         <td>
-                            <el-input type="text" class="addInput"></el-input>
+                            <el-input type="text" class="addInput" v-model="addnewRole.permissionName"></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td style="height:50px;">角色描述</td>
                         <td>
-                            <el-input type="text" class="addInput"></el-input>
+                            <el-input type="text" class="addInput" v-model="addnewRole.permissionDesc"></el-input>
                         </td>
                     </tr>
                 </table>
@@ -27,7 +27,9 @@
                         <el-tree
                         :data="userRoot"
                         show-checkbox                                             
-                        :props="defaultProps">
+                        :props="defaultProps"
+                        v-model="addnewRole.permissions">
+                        
                         </el-tree>
                     </div>                 
                 </div>
@@ -38,7 +40,7 @@
                         <el-button @click="pushView({name:'role'})">取消</el-button>
                     </template>
                     
-                    <el-button type="primary">确定</el-button>
+                    <el-button type="primary" @click="addNewRole">确定</el-button>
                 </el-row>
             </div>
         </div>
@@ -51,6 +53,11 @@ export default {
     data(){
             return {
                 userRoot:[],
+                addnewRole:{
+                    permissionName:'',
+                    permissionDesc:'',
+                    permissions:[]
+                },
                 defaultProps: {
                     children: 'children',
                     label: 'permissionDesc'
@@ -60,6 +67,18 @@ export default {
     methods:{
         outRole(){
             this.$router.go(-1)
+        },
+        addNewRole(){
+            // console.log(this.userRoot)
+            this.$refs['addnewRole'].validate((valid)=>{
+                this.post(this.addnewRole)
+                .then(()=>{
+                    this.addnewRole = {}
+                    this.$router.go(-1)
+                    alert("更新列表");
+                })
+            })
+            this.$route.commit(this.$apis.findAllRoles)
         },
     },
     created(){
@@ -72,6 +91,7 @@ export default {
                 if(!allPermission[i].parentid){
                     allPermission[i].children = [];
                     this.userRoot.push(allPermission[i])
+                    console.log(allPermission[i])
                 }else{
                     for(var j =0;j<this.userRoot.length;j++){                    
                         var id =this.userRoot[j]._id
@@ -131,10 +151,8 @@ export default {
                     tr{   
                         td{
                             border: 1px solid gray;
-                            
                             .addInput{
-                                width: 96%;
-                                
+                                width: 96%;                              
                             }
                         }
                     }
@@ -145,7 +163,6 @@ export default {
                     .centerfoot{
                         width: 70%;
                         height: 100%;
-                        // background: rgb(233, 173, 173);
                     }
                 }
             }

@@ -18,7 +18,11 @@ export default new Router({
         ]
       },
       {path:'root', name:'root',component:()=>import(/**webpackChunkName:'homeleftchilder */'@/components/Root/root')},
-      {path:'user', name:'user',component:()=>import(/**webpackChunkName:'homeleftchilder */'@/components/User/user')},
+      {path:'user', name:'user',component:()=>import(/**webpackChunkName:'homeleftchilder */'@/components/User/user'),
+      children:[
+        {path:'addUser',name:'addUser',component:()=>import(/**webpackChunkName:'addNewRole' */'@/components/User/addUser')},
+      ]
+    },
       {path:'bannerAd',name:'bannerAd',component:()=>import(/*webpackChunkName */'@/components/BannerAd/bannerAd')},
       {path:'newsList',name:'newsList',component:()=>import(/*webpackChunkName:'newsList' */'@/components/NewsList/newsList')}
     ]

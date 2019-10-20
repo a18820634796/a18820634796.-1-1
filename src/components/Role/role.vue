@@ -19,8 +19,8 @@
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in allRoles" :key="index">
-                                <td>{{item.roleDesc}}</td>
                                 <td>{{item.roleName}}</td>
+                                <td>{{item.roleDesc}}</td>
                                 <td></td>
                                 <td style="width:400px">
                                     <el-button type="primary" @click="pushView({name:'redactRole',params:{roleInfo:item}})">
@@ -75,7 +75,7 @@ export default {
     created(){
         this.$http.get(this.$apis.findAllRoles,{pageSize:10,pageNo:1})
         .then((resp)=>{
-            console.log(resp.data)
+            // console.log(resp.data)
             this.allRoles =resp.data.allRoles
             this.length = resp.data.allRoles.length
         })
